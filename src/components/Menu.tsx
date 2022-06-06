@@ -53,6 +53,12 @@ const appPages: AppPage[] = [
     mdIcon: mailSharp
   },
   {
+    title: 'SERVIR',
+    url: '/servir',
+    iosIcon: mailOutline,
+    mdIcon: mailSharp
+  },
+  {
     title: 'Cerrar Sesión',
     url: '#',
     click: function(){accountService.logout();},
