@@ -39,6 +39,9 @@ import {
 	IonGrid,
 	IonRow,
 	IonCol,
+	IonCard,
+	IonCardContent,
+	IonText,
 	IonListHeader
 } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
@@ -93,21 +96,28 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 	//};
 	return (
 		<IonContent className="ion-padding">
-			<label>Antecedentes Penales:</label>
-			<IonGrid>
-				<IonRow>
-					<IonCol >
-						<label>N° Documento</label>
-						<input value={o.ndoc} onChange={(e) => set('ndoc', e)} style={{ textAlign: 'center' }} />
-					</IonCol>
-					<IonCol>
-						<div className="center-movil" style={{ marginTop: 10 }}>
-							<IonButton onClick={getDatosPrincipales}>Consultar</IonButton>
-						</div>
-					</IonCol>
-				</IonRow>
+			<IonCard>
+				<IonCardContent>
+					<IonText style={{ textAlign: 'center', padding: '0px 10px 20px', color: '#1062ac' }}>
+						<h1><u>ANTECEDENTES PENALES</u></h1>
+					</IonText>
+					<IonGrid>
+						<IonRow>
+							<IonCol >
+								<label>N° Documento</label>
+								<input  value={o.ndoc} onChange={(e) => set('ndoc', e)} style={{ textAlign: 'center' }} />
+							</IonCol>
+							<IonCol>
+								<div className="center-movil" style={{ marginTop: 10 }}>
+									<IonButton onClick={getDatosPrincipales}>Consultar</IonButton>
+								</div>
+							</IonCol>
+						</IonRow>
 
-			</IonGrid>
+					</IonGrid>
+
+				</IonCardContent>
+			</IonCard>
 
 			{o.getDatosPrincipales.nombrecompleto ? <div>
 				{[o.getDatosPrincipales].map((item) =>
@@ -161,7 +171,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 
 			</div> : <div></div>}
 
-			
+
 
 			<IonLoading
 				isOpen={showLoading}

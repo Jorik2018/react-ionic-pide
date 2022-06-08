@@ -20,7 +20,7 @@ import {
     IonChip,
     IonCard,
     IonCardContent,
-
+    IonText,
     IonListHeader
 } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
@@ -79,9 +79,9 @@ const Create: React.FC<ResetProps> = ({ match }) => {
         <IonContent className="ion-padding">
             <IonCard>
                 <IonCardContent>
-                    <ion-text style={{ textAlign: 'center', padding: '0px 10px 20px', color: '#1062ac' }}>
+                    <IonText style={{ textAlign: 'center', padding: '0px 10px 20px', color: '#1062ac' }}>
                         <h1><u>CONSULTA SERVIR:</u></h1>
-                    </ion-text>
+                    </IonText>
                     <IonRow>
                         <IonCol >
                             <label>Ingrese N° D.N.I:</label>
@@ -119,7 +119,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
                                             </IonCardContent>
                                         </IonCard>
                                 }
-                                <IonCard>
+                                <IonCard style={{ background: '#fbd1d7' }}>
                                     <IonCardContent>
                                         <IonGrid>
                                             <IonRow>
@@ -183,9 +183,9 @@ const Create: React.FC<ResetProps> = ({ match }) => {
                 </div> : <div>
                     <IonCard color='success'>
                         <IonCardContent>
-                            <ion-text style={{ color: '#fff' }}>
+                            <IonText style={{ color: '#fff' }}>
                                 <h1>NO TIENE SANCIONES..!!</h1>
-                            </ion-text>
+                            </IonText>
                         </IonCardContent>
                     </IonCard>
                 </div>

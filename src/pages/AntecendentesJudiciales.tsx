@@ -17,6 +17,9 @@ import {
 	IonGrid,
 	IonRow,
 	IonCol,
+	IonCard,
+	IonCardContent,
+	IonText,
 	IonListHeader
 } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
@@ -29,7 +32,9 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 	const history = useHistory();
 	const [users, setUsers] = useState<Array<any>>([]);
 	const [o, setO] = useState({
-		ndoc: '',
+		nombres: '',
+		primerApellido: '',
+		segundoApellido: '',
 		getDatosPrincipales: {},
 		getDatosper: {},
 		data: [] as any[]
@@ -46,39 +51,36 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 	http.loadingMask = function (v) { setShowLoading(v) };
 
 	const getDatosPrincipales = () => {
-		http.post('/api/pj/verificarAntecedentesPenales', { xApellidoPaterno: o.ndoc }, {})
+		http.post('/api/inpe/AJudiciales', { nombres: o.nombres, primerApellido: o.primerApellido, segundoApellido: o.segundoApellido }, {})
 			.then((data: any) => {
-				//data = data['RespuestaPersona'];
-				//data.data = [];
-				//set('getDatosPrincipales', data);
-				//getDatosper(data.codigoPersona);
-				console.log(data);
+				data = data['jsonObject'];
+				set('getDatosPrincipales', data);
 			}).catch((error: any) => {
 				console.error(error.message);
 			});
-	};
-
-	//const getDatosper = (valor1) => {
-	//	http.post('/api/pnp/PnpAntPolicialconsultarAntecedenteCodPer', { codigoPersona: valor1 }, {})
-	//		.then((data: any) => {
-	//			data = data['S:Envelope']['S:Body']['ns0:consultarAntecedenteCodPerResponse'].RespuestaAntecedente;
-	//			data.data = [];
-	//			set('getDatosper', data);
-	//		}).catch((error: any) => {
-	//			console.error(error.message);
-	//		});
-
-	//};
+	}
 	return (
 		<IonContent className="ion-padding">
-			<label>Antecedentes Judiciales:</label>
+			<IonCard>
+                <IonCardContent>
+                    <IonText style={{ textAlign: 'center', padding: '0px 10px 20px', color: '#1062ac' }}>
+                        <h1><u>ANTECEDENTS JUDICIALES:</u></h1>
+                    </IonText>
 			<IonGrid>
 				<IonRow>
-					<IonCol >
-						<label>Apellido Paterno</label>
-						<input value={o.ndoc} onChange={(e) => set('ndoc', e)} style={{ textAlign: 'center' }} />
+					<IonCol size='3'>
+						<label>Nombres</label>
+						<input value={o.nombres} onChange={(e) => set('nombres', e)} />
 					</IonCol>
-					<IonCol>
+					<IonCol size='3'>
+						<label>Apellido Paterno</label>
+						<input value={o.primerApellido} onChange={(e) => set('primerApellido', e)} style={{ textAlign: 'center' }} />
+					</IonCol>
+					<IonCol size='3'>
+						<label>Apellido Materno</label>
+						<input value={o.segundoApellido} onChange={(e) => set('segundoApellido', e)} style={{ textAlign: 'center' }} />
+					</IonCol>
+					<IonCol size='3'>
 						<div className="center-movil" style={{ marginTop: 10 }}>
 							<IonButton onClick={getDatosPrincipales}>Consultar</IonButton>
 						</div>
@@ -86,60 +88,38 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 				</IonRow>
 
 			</IonGrid>
+			</IonCardContent>
+            </IonCard>
 
-			{o.getDatosPrincipales.xApellidoPaterno ? <div>
+			{o.getDatosPrincipales.resultado ? <div>
 				{[o.getDatosPrincipales].map((item) =>
 					<>
-						<IonGrid>
-							<IonRow>
-								<IonCol size='3'>
-									<label>Codigo Persona: </label>
-									<input readOnly="readonly" value={item.xApellidoPaterno} />
-								</IonCol>
-							</IonRow>
-							<IonRow>
-								<IonCol>
-									<label>Nombre Completo:</label>
-									<input readOnly="readonly" value={item.xApellidoPaterno} />
-								</IonCol>
-							</IonRow>
-							<IonRow>
-								<IonCol>
-									<label>Fch. Nacimiento:</label>
-									<input readOnly="readonly" value={item.xApellidoPaterno} />
-								</IonCol>
-								<IonCol>
-									<label>Sexo:</label>
-									<input readOnly="readonly" value={item.xApellidoPaterno} />
-								</IonCol>
-							</IonRow>
-							<IonRow>
-								<IonCol>
-									<label>Homonimia:</label>
-									<input readOnly="readonly" value={item.xApellidoPaterno} />
-								</IonCol>
-								<IonCol>
-									<label>Doble Identidad:</label>
-									<input readOnly="readonly" value={item.xApellidoPaterno} />
-								</IonCol>
-							</IonRow>
-							<IonRow>
-								<IonCol>
-									<label>Dirección</label>
-									<input readOnly="readonly" value={item.xApellidoPaterno} />
-								</IonCol>
-							</IonRow>
+						{
+							item.resultado == "Observado" ?
+								<IonCard color='danger'>
+									<IonCardContent>
+										<IonText style={{ color: '#fff' }}>
+											<h1>{item.resultado}</h1>
+										</IonText>
+									</IonCardContent>
+								</IonCard>
+								:
+								<IonCard color='success'>
+									<IonCardContent>
+										<IonText style={{ color: '#fff' }}>
+											<h1>{item.resultado}</h1>
+										</IonText>
+									</IonCardContent>
+								</IonCard>
 
-
-
-
-						</IonGrid></>
+						}
+					</>
 				)}
 
 
 			</div> : <div></div>}
 
-			
+
 
 			<IonLoading
 				isOpen={showLoading}
