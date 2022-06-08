@@ -93,21 +93,6 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 		}
 	];
 
-	//	const buscaRazonSocial = () => {
-	//		console.log(o);
-	//		http.post('/api/sunat/buscaRazonSocial', { numruc: o.code }, {})
-	//			.then((data: any) => {
-	//				//data.code = o.code;
-	//				//console.log(o.code);
-	//				//setO(data);
-	//
-	//				//set('patient',data[0].paciente);
-	//			})
-	//			.catch((error: any) => {
-	//				console.error(error.message);
-	//			});
-	//	};
-
 	const getDatosPrincipales = () => {
 		http.post('/api/sunat/getDatosPrincipales', { numruc: o.code }, {})
 			.then((data: any) => {
@@ -120,32 +105,6 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 				console.error(error.message);
 			});
 	};
-
-	//	const getDomicilioLegal = () => {
-	//		http.post('/api/sunat/getDomicilioLegal', { numruc: o.code }, {})
-	//			.then((data: any) => {
-	//				//console.log(data);
-	//				set('getDomicilioLegal', data);
-	//				//console.log(data);
-	//			}).catch((error: any) => {
-	//				console.error(error.message);
-	//			});
-	//	};
-
-
-	//	const getEstablecimientosAnexos = () => {
-	//		http.post('/api/sunat/getEstablecimientosAnexos', { numruc: o.code }, {})
-	//			.then((data: any) => {
-	//				data = data['soapenv:Envelope']['soapenv:Body']['ns1:getEstablecimientosAnexosResponse'];
-	//				console.log(data);
-	//				//data.code = o.code;
-	//				//data.data = [];
-	//				set('getEstablecimientosAnexos', data);
-	//				//console.log(data);
-	//			}).catch((error: any) => {
-	//				console.error(error.message);
-	//			});
-	//	};
 
 	return (
 		<IonContent className="ion-padding">
@@ -171,7 +130,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 			{o.getDatosPrincipales.ddp_nombre ? <div>
 				{[o.getDatosPrincipales].map((item) =>
 					<>
-						<IonCard style={{ background:'#e6fff0'}}>
+						<IonCard style={{ background:'#e5ffe8'}}>
 							<IonCardContent>
 								<IonGrid>
 									<IonRow>
@@ -235,7 +194,17 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 					</>
 				)}
 
-			</div> : <div></div>}
+			</div> : <div> {o.getDatosPrincipales.ddp_nombre== "" ? 
+			
+			<IonCard color="danger">
+						<IonCardContent>
+							<IonText >
+								<h1>INCORRECTO, VERIFIQUE EL NUMERO RUC..!!</h1>
+							</IonText>
+						</IonCardContent>
+					</IonCard>
+			
+			: <div></div> }</div>}
 
 
 			<IonLoading

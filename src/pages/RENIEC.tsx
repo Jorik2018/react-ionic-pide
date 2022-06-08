@@ -22,6 +22,7 @@ import {
 	IonCardSubtitle,
 	IonCardTitle,
 	IonCardContent,
+	IonText,
 	IonListHeader
 } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
@@ -84,9 +85,9 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 
 			<IonCard>
 <IonCardContent>
-				<ion-text style={{ textAlign: 'center', padding: '0px 10px 20px', color: '#1062ac' }}>
+				<IonText style={{ textAlign: 'center', padding: '0px 10px 20px', color: '#1062ac' }}>
 					<h1><u>CONSULTA RENIEC</u></h1>
-				</ion-text>
+				</IonText>
 					<IonRow>
 						<IonCol>
 							<label>Ingrese Numero</label>
@@ -106,7 +107,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 					{o.getDatosPrincipales.apPrimer ? <div>
 						{[o.getDatosPrincipales].map((item) =>
 							<IonCard >
-								<IonCardContent style={{background: 'floralwhite'}}>
+								<IonCardContent style={{background: '#e5ffe8'}}>
 									<IonGrid>
 										<IonRow>
 											<IonCol size='4'>
@@ -158,11 +159,11 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 						)}
 					</div> : <div></div>}
 				</div> : <div>
-					<IonCard>
+					<IonCard color="danger">
 						<IonCardContent>
-							<ion-text color="danger">
+							<IonText >
 								<h1>NUMERO INCORRECTO, VERIFIQUE EL NUMERO DE DNI..!!</h1>
-							</ion-text>
+							</IonText>
 						</IonCardContent>
 					</IonCard>
 				</div>
