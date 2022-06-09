@@ -78,7 +78,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 			<IonCard>
 				<IonCardContent>
 					<IonText style={{ textAlign: 'center', padding: '0px 10px 20px', color: '#1062ac' }}>
-						<h1><u>ANTECEDENTES PENALES</u></h1>
+						<h1><u>ANTECEDENTES JUDICIALES</u></h1>
 					</IonText>
 					<IonGrid>
 						<IonRow>
