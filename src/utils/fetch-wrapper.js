@@ -51,6 +51,7 @@ function post(url, body, header) {
         headers: { 'Content-Type': 'application/json', ...authHeader(url,header)},
         body: JSON.stringify(body)
     };
+    
 	if(http.loadingMask)http.loadingMask(true);
     return fetch(scheme(url), requestOptions).then(handleResponse);
 }
@@ -77,30 +78,32 @@ function _delete(url) {
 
 // helper functions
 
-function authHeader(url,header) {
+function authHeader(url,opts) {
     // return auth header with jwt if user is logged in and request is to the api url
     const user = accountService.getUserValue();
     const isLoggedIn = user && user.jwtToken;
-	
     //const isApiUrl = url.startsWith(config.apiUrl);
-	if(header){
-		return header;
-	}else if (isLoggedIn /*&& isApiUrl*/) {
-        return { Authorization: `Bearer ${user.jwtToken}` };
-    } else {
-        return {};
-    }
+	var header={};
+    if(isLoggedIn /*&& isApiUrl*/)
+        header.Authorization=`Bearer ${user.jwtToken}`;
+	if(opts)header={...header,...opts};
+    return header;
 }
 
 function handleResponse(response) {
     return response.text().then(text => {
 		if(http.loadingMask)http.loadingMask(false);
+        
         if (!response.ok) {
 			const data = text;
-            /*if ([401, 403].includes(response.status) && accountService.userValue) {
+            if ([401].includes(response.status) && accountService.getUserValue()) {
                 // auto logout if 401 Unauthorized or 403 Forbidden response returned from api
+                //403 es prohibido 
+
                 accountService.logout();
-            }*/
+            }else if(response.status==403){
+                alert('No esta autorizado!');
+            }
 			response.message=data;
            // const error = (data && data.message) || response.statusText;
             return Promise.reject(response);

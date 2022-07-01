@@ -1,38 +1,25 @@
 import {
     IonContent,
-    IonHeader,
-    IonPage,
-    IonTitle,
-    IonTextarea,
-    IonToolbar,
-    IonItemDivider,
-    IonIcon,
-    IonItem,
     IonLoading,
     IonButton,
-    IonInput,
-    IonLabel,
-    IonAvatar,
-    IonList,
     IonGrid,
     IonRow,
     IonCol,
-    IonChip,
     IonCard,
     IonCardContent,
-    IonText,
-    IonListHeader
+    IonText
 } from '@ionic/react';
-import React, { useState, useEffect } from 'react';
+import React, { useState, createRef } from 'react';
 import { useHistory, RouteComponentProps } from "react-router-dom";
 import { http } from '../utils/fetch-wrapper.js';
 import { pin, heart, closeCircle, close } from 'ionicons/icons';
 
 interface ResetProps extends RouteComponentProps<{ id: string }> { }
 
+const btn = createRef();
+
 const Create: React.FC<ResetProps> = ({ match }) => {
-    const history = useHistory();
-    const [users, setUsers] = useState<Array<any>>([]);
+
     const [o, setO] = useState({
         ndoc: '',
         getDatosPrincipales: {},
@@ -48,6 +35,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
     };
 
     const [showLoading, setShowLoading] = useState();
+
     http.loadingMask = function (v) { setShowLoading(v) };
 
     const getDatosPrincipales = (doc) => {
@@ -60,7 +48,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
                 console.error(error.message);
             });
     };
-    /////////////////////////////////////////
+
     const getDatosMSG = () => {
         http.post('/api/servir/consultarPorDni', { numDoc: o.ndoc }, {})
             .then((data: any) => {
@@ -85,11 +73,13 @@ const Create: React.FC<ResetProps> = ({ match }) => {
                     <IonRow>
                         <IonCol >
                             <label>Ingrese N° D.N.I:</label>
-                            <input value={o.ndoc} onChange={(e) => set('ndoc', e)} style={{ textAlign: 'center' }} />
+                            <input value={o.ndoc} onChange={(e) => set('ndoc', e)}
+                                onKeyPress={(event) => { if (event.key === "Enter") btn.current.click(); }}
+                                style={{ textAlign: 'center' }} />
                         </IonCol>
                         <IonCol>
                             <div className="center-movil" style={{ marginTop: 10 }}>
-                                <IonButton onClick={getDatosMSG}>Consultar</IonButton>
+                                <IonButton onClick={getDatosMSG} ref={btn}>Consultar</IonButton>
                             </div>
                         </IonCol>
                     </IonRow>

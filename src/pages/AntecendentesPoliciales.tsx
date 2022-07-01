@@ -1,36 +1,24 @@
 import {
 	IonContent,
-	IonHeader,
-	IonPage,
-	IonTitle,
-	IonTextarea,
-	IonToolbar,
-	IonItemDivider,
-	IonIcon,
-	IonItem,
 	IonLoading,
 	IonButton,
-	IonInput,
-	IonLabel,
-	IonAvatar,
-	IonList,
 	IonGrid,
 	IonRow,
 	IonCol,
 	IonCard,
 	IonCardContent,
-	IonText,
-	IonListHeader
+	IonText
 } from '@ionic/react';
-import React, { useState, useEffect } from 'react';
-import { useHistory, RouteComponentProps } from "react-router-dom";
+import React, { useState, createRef } from 'react';
+import { RouteComponentProps } from "react-router-dom";
 import { http } from '../utils/fetch-wrapper.js';
 
 interface ResetProps extends RouteComponentProps<{ id: string }> { }
 
-const Create: React.FC<ResetProps> = ({ match }) => {
-	const history = useHistory();
-	const [users, setUsers] = useState<Array<any>>([]);
+const btn = createRef();
+
+const Create: React.FC<ResetProps> = ({ }) => {
+
 	const [o, setO] = useState({
 		ndoc: '',
 		getDatosPrincipales: {},
@@ -47,6 +35,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 	};
 
 	const [showLoading, setShowLoading] = useState();
+
 	http.loadingMask = function (v) { setShowLoading(v) };
 
 	const getDatos = () => {
@@ -64,7 +53,6 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 				console.error(error.message);
 			});
 	};
-
 
 	const getDatosPrincipales = (valor) => {
 		http.post('/api/pnp/PnpAntPolicialconsultarPersonaNroDoc', { nroDoc: valor }, {})
@@ -90,6 +78,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 			});
 
 	}
+
 	return (
 		<IonContent className="ion-padding">
 			<IonCard>
@@ -101,11 +90,13 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 						<IonRow>
 							<IonCol >
 								<label>N° Documento</label>
-								<input value={o.ndoc} onChange={(e) => set('ndoc', e)} style={{ textAlign: 'center' }} />
+								<input value={o.ndoc} onChange={(e) => set('ndoc', e)} 
+								onKeyPress={(event) => { if (event.key === "Enter") btn.current.click(); }}
+								style={{ textAlign: 'center' }} />
 							</IonCol>
 							<IonCol>
 								<div className="center-movil" style={{ marginTop: 10 }}>
-									<IonButton onClick={getDatos}>Consultar</IonButton>
+									<IonButton onClick={getDatos} ref={btn}>Consultar</IonButton>
 								</div>
 							</IonCol>
 						</IonRow>
@@ -159,10 +150,6 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 												<input readOnly="readonly" value={item.nombrecompleto} />
 											</IonCol>
 										</IonRow>
-
-
-
-
 									</IonGrid>
 								</IonCardContent>
 							</IonCard>
@@ -171,7 +158,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 				</div> : <div></div>}
 				{o.getDatosper.antecedente ? <div>
 					{[o.getDatosper].map((item) =>
-						<IonCard  color='danger'>
+						<IonCard color='danger'>
 							<IonCardContent>
 								<IonGrid>
 									<IonRow>

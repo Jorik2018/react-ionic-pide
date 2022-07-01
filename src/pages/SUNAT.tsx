@@ -1,47 +1,26 @@
 import {
 	IonContent,
-	IonHeader,
-	IonPage,
-	IonTitle,
-	IonTextarea,
-	IonToolbar,
-	IonItemDivider,
-	IonIcon,
-	IonItem,
 	IonLoading,
 	IonButton,
-	IonInput,
-	IonLabel,
-	IonAvatar,
-	IonList,
 	IonGrid,
 	IonRow,
 	IonText,
 	IonCol,
 	IonCard,
-	IonCardContent,
-	IonListHeader
+	IonCardContent
 } from '@ionic/react';
-import React, { useState, useEffect } from 'react';
-import { useHistory, RouteComponentProps } from "react-router-dom";
+import React, { useState, createRef } from 'react';
 import { http } from '../utils/fetch-wrapper.js';
-//import DataTable from "react-data-table-component";
-//import DataTableExtensions from "react-data-table-component-extensions";
-//https://www.smashingmagazine.com/2020/08/forms-validation-ionic-react/
 
 interface ResetProps extends RouteComponentProps<{ id: string }> { }
 
+const btn = createRef();
+
 const Create: React.FC<ResetProps> = ({ match }) => {
-	const history = useHistory();
-	const [users, setUsers] = useState<Array<any>>([]);
+
 	const [o, setO] = useState({
 		code: '',
-		//mail: '',
-		//description: '',
 		getDatosPrincipales: {},
-		//getDomicilioLegal: {},
-		//getEstablecimientosAnexos: {},
-		//name: '',
 		data: [] as any[]
 	});
 
@@ -55,50 +34,10 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 	const [showLoading, setShowLoading] = useState();
 	http.loadingMask = function (v) { setShowLoading(v) };
 
-	const columns = [
-		{
-			name: 'Fecha',
-			cell: (row) => row.fechaVacunacion,
-			width: 100,
-		},
-		{
-			name: 'Fabricante',
-			selector: (row) => row.fabricanteAbrev,
-			wrap: true,
-			width: 200,
-		},
-		{
-			name: 'Diagnostico',
-			wrap: true,
-			selector: (row) => row.vacuna,
-			width: 200,
-		},
-		{
-			name: 'Dosis',
-			wrap: true,
-			cell: (row) => row.dosisAplicada,
-			width: 100,
-		},
-		{
-			name: 'Establecimiento',
-			wrap: true,
-			cell: (row) => row.establecimiento,
-			width: 300,
-		},
-		{
-			name: 'Grupo',
-			cell: (row) => row.grupo,
-			wrap: true,
-			width: 100,
-		}
-	];
-
 	const getDatosPrincipales = () => {
 		http.post('/api/sunat/getDatosPrincipales', { numruc: o.code }, {})
 			.then((data: any) => {
 				data = data['soapenv:Envelope']['soapenv:Body'].multiRef;
-				////data.code = o.code;
-				////data.data = [];
 				set('getDatosPrincipales', data);
 				console.log(data);
 			}).catch((error: any) => {
@@ -115,22 +54,22 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 					</IonText>
 					<IonRow style={{ padding: '0px 10px 20px' }}>
 						<IonCol>
-							
-							<input placeholder='INGRESE RUC' value={o.code} onChange={(e) => set('code', e)}  />
+							<input placeholder='INGRESE RUC' value={o.code}
+								onKeyPress={(event) => { if (event.key === "Enter") btn.current.click(); }}
+								onChange={(e) => set('code', e)} />
 						</IonCol>
 						<IonCol>
 							<div className="center-movil" >
-								<IonButton onClick={getDatosPrincipales}>CONSULTAR</IonButton>
+								<IonButton onClick={getDatosPrincipales} ref={btn}>CONSULTAR</IonButton>
 							</div>
 						</IonCol>
 					</IonRow>
 				</IonCardContent>
 			</IonCard>
-
 			{o.getDatosPrincipales.ddp_nombre ? <div>
 				{[o.getDatosPrincipales].map((item) =>
 					<>
-						<IonCard style={{ background:'#e5ffe8'}}>
+						<IonCard style={{ background: '#e5ffe8' }}>
 							<IonCardContent>
 								<IonGrid>
 									<IonRow>
@@ -179,7 +118,6 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 											<label>Descripción de actividad económica sunat:</label>
 											<input readOnly="readonly" value={item.desc_ciiu} />
 										</IonCol>
-
 									</IonRow>
 									<IonRow>
 										<IonCol>
@@ -190,23 +128,17 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 								</IonGrid>
 							</IonCardContent>
 						</IonCard>
-
 					</>
 				)}
-
-			</div> : <div> {o.getDatosPrincipales.ddp_nombre== "" ? 
-			
-			<IonCard color="danger">
-						<IonCardContent>
-							<IonText >
-								<h1>INCORRECTO, VERIFIQUE EL NUMERO RUC..!!</h1>
-							</IonText>
-						</IonCardContent>
-					</IonCard>
-			
-			: <div></div> }</div>}
-
-
+			</div> : <div> {o.getDatosPrincipales.ddp_nombre == "" ?
+				<IonCard color="danger">
+					<IonCardContent>
+						<IonText >
+							<h1>INCORRECTO, VERIFIQUE EL NUMERO RUC..!!</h1>
+						</IonText>
+					</IonCardContent>
+				</IonCard>
+				: <div></div>}</div>}
 			<IonLoading
 				isOpen={showLoading}
 				message={'Please wait...'}

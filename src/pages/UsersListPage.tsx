@@ -49,7 +49,7 @@ const history = useHistory();
 		setPerPage(newPerPage);
 	};
 	useEffect(() => {
-		handlePerRowsChange(10,1); // fetch page 1 of users
+		handlePerRowsChange(10,1);
 		
 	}, []);
 	const columns = [
