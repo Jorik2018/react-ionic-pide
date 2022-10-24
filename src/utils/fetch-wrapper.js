@@ -15,7 +15,7 @@ export const http = {
 	//ionic build --prod -- --base-href /vaccine/search/
 	//baseHREF:'/dre/enrollment',
 	baseHREF:'/admin/pide',
-	baseURL:'http://web.regionancash.gob.pe'
+	baseURL:process.env.REACT_APP_BASE_URL
 }
 
 function scheme(url){
