@@ -19,7 +19,7 @@ export const accountService = {
     get userValue () { return userSubject.value }*/
 };
 
-function setUserValue(user){
+function setUserValue(user:any){
 	user.jwtToken=user.token;
 	localStorage.setItem('user',JSON.stringify(user));
 }
@@ -28,5 +28,5 @@ function logout(){
 	window.location.reload();
 }
 function getUserValue(){
-	return JSON.parse(localStorage.getItem('user'));
+	return JSON.parse((localStorage as any).getItem('user'));
 }

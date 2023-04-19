@@ -3,7 +3,6 @@ import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
 import Menu from './components/Menu';
 import Page from './pages/Page';
-import Login from './pages/Login';
 import { accountService } from './services/accountService.js';
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/normalize.css';
@@ -26,6 +25,9 @@ setupIonicReact();
 */
 const App: React.FC = () => {
 	let menu:any;
+
+  menu=<Menu />;
+/*
 	var url = new URL(window.location);
 	var location = window.location;
 	var token = url.searchParams.get("token");
@@ -38,7 +40,7 @@ const App: React.FC = () => {
 		menu=<Menu />;
 	else{
 		window.location.href = "http://web.regionancash.gob.pe/auth?destiny="+window.location.href;
-	}
+	}*/
 	return (
 		<IonApp>
 			<IonReactRouter basename={'/'}>

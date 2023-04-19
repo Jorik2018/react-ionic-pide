@@ -1,12 +1,10 @@
 //import config from 'config';
 import { accountService } from '../services/accountService.js';
-import { useIonLoading } from '@ionic/react';
-import React, { useState, useEffect } from 'react';
 
 //const [showLoading, setShowLoading] = useState(true);
 var loadingMask;
 
-export const http = {
+export const http:any = {
     get,
     post,
     put,
@@ -15,17 +13,17 @@ export const http = {
 	//ionic build --prod -- --base-href /vaccine/search/
 	//baseHREF:'/dre/enrollment',
 	baseHREF:'/admin/pide',
-	baseURL:process.env.REACT_APP_BASE_URL
+	baseURL:import.meta.env.VITE_APP_BASE_URL
 }
 
-function scheme(url){
+function scheme(url:any){
 	if(!/^(f|ht)tps?:\/\//i.test(url)){
         return http.baseURL+url;
     }else
 		return url;
 }
 
-function get(url) {
+function get(url:any) {
     const requestOptions = {
         method: 'GET',
         headers: authHeader(url)
@@ -34,18 +32,7 @@ function get(url) {
     return fetch(scheme(url), requestOptions).then(handleResponse);
 }
 
-function makeid(length:number) {
-	var result           = '';
-	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	var charactersLength = characters.length;
-	for ( var i = 0; i < length; i++ ) {
-		result += characters.charAt(Math.floor(Math.random() * 
-		charactersLength));
-	}
-	return result;
-}
-
-function post(url, body, header) {
+function post(url:any, body:any, header:any) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', ...authHeader(url,header)},
@@ -56,7 +43,7 @@ function post(url, body, header) {
     return fetch(scheme(url), requestOptions).then(handleResponse);
 }
 
-function put(url, body) {
+function put(url:any, body:any) {
     const requestOptions = {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json', ...authHeader(url) },
@@ -67,7 +54,7 @@ function put(url, body) {
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
-function _delete(url) {
+function _delete(url:any) {
     const requestOptions = {
         method: 'DELETE',
         headers: authHeader(url)
@@ -78,20 +65,20 @@ function _delete(url) {
 
 // helper functions
 
-function authHeader(url,opts) {
+function authHeader(url:any,opts?:any):any {
     // return auth header with jwt if user is logged in and request is to the api url
     const user = accountService.getUserValue();
     const isLoggedIn = user && user.jwtToken;
     //const isApiUrl = url.startsWith(config.apiUrl);
-	var header={};
+	var header:any={};
     if(isLoggedIn /*&& isApiUrl*/)
         header.Authorization=`Bearer ${user.jwtToken}`;
 	if(opts)header={...header,...opts};
     return header;
 }
 
-function handleResponse(response) {
-    return response.text().then(text => {
+function handleResponse(response:any) {
+    return response.text().then((text:any) => {
 		if(http.loadingMask)http.loadingMask(false);
         
         if (!response.ok) {
