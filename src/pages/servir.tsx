@@ -12,17 +12,16 @@ import {
 import React, { useState, createRef } from 'react';
 import { useHistory, RouteComponentProps } from "react-router-dom";
 import { http } from '../utils/fetch-wrapper.js';
-import { pin, heart, closeCircle, close } from 'ionicons/icons';
 
 interface ResetProps extends RouteComponentProps<{ id: string }> { }
 
-const btn = createRef();
+const btn:any = createRef();
 
 const Create: React.FC<ResetProps> = ({ match }) => {
 
     const [o, setO] = useState({
         ndoc: '',
-        getDatosPrincipales: {},
+        getDatosPrincipales: {numeroDocumento:''},
         getDatosMSG: {},
         data: [] as any[]
     });
@@ -36,9 +35,9 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 
     const [showLoading, setShowLoading] = useState();
 
-    http.loadingMask = function (v) { setShowLoading(v) };
+    http.loadingMask = function (v:any) { setShowLoading(v) };
 
-    const getDatosPrincipales = (doc) => {
+    const getDatosPrincipales = (doc:any) => {
         http.post('/api/servir/consultarPorDni', { numDoc: doc }, {})
             .then((data: any) => {
                 data = data['soap:Envelope']['soap:Body']['ns5:consultarPorDniResponse'].return['ns10:ResponseSancionRnsdd'];
@@ -89,23 +88,23 @@ const Create: React.FC<ResetProps> = ({ match }) => {
             {
                 o.getDatosMSG != "" ? <div>
                     {o.getDatosPrincipales.numeroDocumento ? <div>
-                        {[o.getDatosPrincipales].map((item) =>
+                        {[o.getDatosPrincipales].map((item:any) =>
                             <>
                                 {
                                     item.inhabilita == 0 ?
                                         <IonCard>
                                             <IonCardContent>
-                                                <ion-text color="Secundary">
+                                                <IonText  color="Secundary">
                                                     <h1>HABILITADO..!!</h1>
-                                                </ion-text>
+                                                </IonText >
                                             </IonCardContent>
                                         </IonCard>
                                         :
                                         <IonCard color='danger'>
                                             <IonCardContent>
-                                                <ion-text style={{ color: '#fff' }}>
+                                                <IonText  style={{ color: '#fff' }}>
                                                     <h1>INHABILITADO..!!</h1>
-                                                </ion-text>
+                                                </IonText >
                                             </IonCardContent>
                                         </IonCard>
                                 }
@@ -115,19 +114,19 @@ const Create: React.FC<ResetProps> = ({ match }) => {
                                             <IonRow>
                                                 <IonCol size='3'>
                                                     <label>DNI: </label>
-                                                    <input readOnly="readonly" value={item.numeroDocumento} />
+                                                    <input readOnly={true} value={item.numeroDocumento} />
                                                 </IonCol>
                                             </IonRow>
                                             <IonRow>
                                                 <IonCol>
                                                     <label>Nombre Completo:</label>
-                                                    <input readOnly="readonly" value={item.apellidoPaterno + ' ' + item.apellidoMaterno + ' ' + item.nombres} />
+                                                    <input readOnly={true} value={item.apellidoPaterno + ' ' + item.apellidoMaterno + ' ' + item.nombres} />
                                                 </IonCol>
                                             </IonRow>
                                             <IonRow>
                                                 <IonCol>
                                                     <label>Entidad:</label>
-                                                    <input readOnly="readonly" value={item.entidad} />
+                                                    <input readOnly={true} value={item.entidad} />
                                                 </IonCol>
                                             </IonRow>
                                             <IonRow>
@@ -146,21 +145,21 @@ const Create: React.FC<ResetProps> = ({ match }) => {
                                             <IonRow>
                                                 <IonCol>
                                                     <label>Estado Sanción:</label>
-                                                    <input readOnly="readonly" value={item.estadoSancion} />
+                                                    <input readOnly={true} value={item.estadoSancion} />
                                                 </IonCol>
                                                 <IonCol>
                                                     <label>Fecha Inicio:</label>
-                                                    <input readOnly="readonly" value={item.fechaInicio} />
+                                                    <input readOnly={true} value={item.fechaInicio} />
                                                 </IonCol>
                                                 <IonCol>
                                                     <label>Fecha Fin:</label>
-                                                    <input readOnly="readonly" value={item.fechaFin} />
+                                                    <input readOnly={true} value={item.fechaFin} />
                                                 </IonCol>
                                             </IonRow>
                                             <IonRow>
                                                 <IonCol>
                                                     <label>Documentación:</label>
-                                                    <input readOnly="readonly" value={item.tipoDocumentoSanciona + ' N°' + item.numeroDocumentoSanciona} />
+                                                    <input readOnly={true} value={item.tipoDocumentoSanciona + ' N°' + item.numeroDocumentoSanciona} />
                                                 </IonCol>
                                             </IonRow>
                                         </IonGrid>

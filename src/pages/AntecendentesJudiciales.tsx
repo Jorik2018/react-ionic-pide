@@ -21,7 +21,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 		nombres: '',
 		primerApellido: '',
 		segundoApellido: '',
-		getDatosPrincipales: {},
+		getDatosPrincipales: { resultado: '' },
 		getDatosper: {},
 		data: [] as any[]
 	});
@@ -35,7 +35,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 
 	const [showLoading, setShowLoading] = useState();
 
-	http.loadingMask = function (v) { setShowLoading(v) };
+	http.loadingMask = function (v: any) { setShowLoading(v) };
 
 	const getDatosPrincipales = () => {
 		http.post('/api/inpe/AJudiciales', { nombres: o.nombres, primerApellido: o.primerApellido, segundoApellido: o.segundoApellido }, {})
@@ -46,7 +46,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 				console.error(error.message);
 			});
 	}
-	
+
 	return (
 		<IonContent className="ion-padding">
 			<IonCard>
@@ -79,7 +79,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 				</IonCardContent>
 			</IonCard>
 			{o.getDatosPrincipales.resultado ? <div>
-				{[o.getDatosPrincipales].map((item) =>
+				{[o.getDatosPrincipales].map((item: any) =>
 					<>
 						{
 							item.resultado == "Observado" ?

@@ -54,7 +54,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 	
 	const [o, setO] = useState({
 		ndoc: '',
-		getDatosPrincipales: {},
+		getDatosPrincipales: {nombrecompleto:''},
 		getDatosper: {},
 		data: [] as any[]
 	});
@@ -67,7 +67,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 	};
 
 	const [showLoading, setShowLoading] = useState();
-	http.loadingMask = function (v) { setShowLoading(v) };
+	http.loadingMask = function (v:any) { setShowLoading(v) };
 
 	const getDatosPrincipales = () => {
 		http.post('/api/inpe/AJudiciales', { primerApellido: o.ndoc }, {})
@@ -103,45 +103,45 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 			</IonCard>
 
 			{o.getDatosPrincipales.nombrecompleto ? <div>
-				{[o.getDatosPrincipales].map((item) =>
+				{[o.getDatosPrincipales].map((item:any) =>
 					<>
 						<IonGrid>
 							<IonRow>
 								<IonCol size='3'>
 									<label>Codigo Persona: </label>
-									<input readOnly="readonly" value={item.codigoPersona} />
+									<input readOnly={true} value={item.codigoPersona} />
 								</IonCol>
 							</IonRow>
 							<IonRow>
 								<IonCol>
 									<label>Nombre Completo:</label>
-									<input readOnly="readonly" value={item.nombrecompleto} />
+									<input readOnly={true} value={item.nombrecompleto} />
 								</IonCol>
 							</IonRow>
 							<IonRow>
 								<IonCol>
 									<label>Fch. Nacimiento:</label>
-									<input readOnly="readonly" value={item.fechaNacimiento} />
+									<input readOnly={true} value={item.fechaNacimiento} />
 								</IonCol>
 								<IonCol>
 									<label>Sexo:</label>
-									<input readOnly="readonly" value={item.sexo} />
+									<input readOnly={true} value={item.sexo} />
 								</IonCol>
 							</IonRow>
 							<IonRow>
 								<IonCol>
 									<label>Homonimia:</label>
-									<input readOnly="readonly" value={item.homonimia} />
+									<input readOnly={true} value={item.homonimia} />
 								</IonCol>
 								<IonCol>
 									<label>Doble Identidad:</label>
-									<input readOnly="readonly" value={item.dobleIdentidad} />
+									<input readOnly={true} value={item.dobleIdentidad} />
 								</IonCol>
 							</IonRow>
 							<IonRow>
 								<IonCol>
 									<label>Dirección</label>
-									<input readOnly="readonly" value={item.nombrecompleto} />
+									<input readOnly={true} value={item.nombrecompleto} />
 								</IonCol>
 							</IonRow>
 

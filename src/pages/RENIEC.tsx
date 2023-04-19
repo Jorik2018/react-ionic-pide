@@ -18,11 +18,11 @@ import { http } from '../utils/fetch-wrapper.js';
 
 interface ResetProps extends RouteComponentProps<{ id: string }> { }
 
-const btn = createRef();
+const btn: any = createRef();
 
 const Create: React.FC<ResetProps> = () => {
 
-	const [o, setO] = useState({
+	const [o, setO]: any = useState({
 		code: '',
 		coResultado: '',
 		mail: '',
@@ -30,23 +30,31 @@ const Create: React.FC<ResetProps> = () => {
 		datosPersona: {},
 		deResultado: '',
 		name: '',
+		direccion: '',
+		apSegundo: '',
+		prenombres: '',
+		estadoCivil: '',
+		restriccion: '',
+		ubigeo: '',
+		apPrimer: '',
 		data: [] as any[]
 	});
 
 	const set = (name: any, v: any) => {
 		var vv = v && v.target ? v.target.value : v;
-		setO(o => ({
+		setO((o: any) => ({
 			...o, [name]: vv
 		}));
 	};
 
 	const [showLoading, setShowLoading] = useState();
 
-	http.loadingMask = function (v) { setShowLoading(v) };
+	http.loadingMask = (v: any) => { setShowLoading(v) };
 
 	const getDatosMSG = () => {
 		http.post('/api/reniec/', { dni: o.code }, {})
 			.then((data: any) => {
+				data = data.consultarResponse.return;
 				setO({ ...o, ...data });
 			}).catch((error: any) => {
 				console.error(error.message);
@@ -77,7 +85,7 @@ const Create: React.FC<ResetProps> = () => {
 			</IonCard>
 			{
 				o.coResultado == "0000" ? <div>
-					{[o.datosPersona].map((item, i) =>
+					{[o.datosPersona].map((item: any, i) =>
 						<IonCard key={i}>
 							<IonCardContent style={{ background: '#e5ffe8' }}>
 								<IonGrid>

@@ -15,14 +15,14 @@ import { http } from '../utils/fetch-wrapper.js';
 
 interface ResetProps extends RouteComponentProps<{ id: string }> { }
 
-const btn = createRef();
+const btn: any = createRef();
 
 const Create: React.FC<ResetProps> = ({ }) => {
 
 	const [o, setO] = useState({
 		ndoc: '',
-		getDatosPrincipales: {},
-		getDatosper: {},
+		getDatosPrincipales: { nombrecompleto: '' },
+		getDatosper: { antecedente: '' },
 		getDatos: {},
 		data: [] as any[]
 	});
@@ -36,7 +36,7 @@ const Create: React.FC<ResetProps> = ({ }) => {
 
 	const [showLoading, setShowLoading] = useState();
 
-	http.loadingMask = function (v) { setShowLoading(v) };
+	http.loadingMask = function (v: any) { setShowLoading(v) };
 
 	const getDatos = () => {
 		http.post('/api/pnp/PnpAntPolicialconsultarPersonaNroDoc', { nroDoc: o.ndoc }, {})
@@ -54,7 +54,7 @@ const Create: React.FC<ResetProps> = ({ }) => {
 			});
 	};
 
-	const getDatosPrincipales = (valor) => {
+	const getDatosPrincipales = (valor: any) => {
 		http.post('/api/pnp/PnpAntPolicialconsultarPersonaNroDoc', { nroDoc: valor }, {})
 			.then((data: any) => {
 				data = data['RespuestaPersona'];
@@ -67,7 +67,7 @@ const Create: React.FC<ResetProps> = ({ }) => {
 			});
 	};
 
-	const getDatosper = (valor1) => {
+	const getDatosper = (valor1: any) => {
 		http.post('/api/pnp/PnpAntPolicialconsultarAntecedenteCodPer', { codigoPersona: valor1 }, {})
 			.then((data: any) => {
 				data = data['S:Envelope']['S:Body']['ns0:consultarAntecedenteCodPerResponse'].RespuestaAntecedente;
@@ -90,9 +90,9 @@ const Create: React.FC<ResetProps> = ({ }) => {
 						<IonRow>
 							<IonCol >
 								<label>N° Documento</label>
-								<input value={o.ndoc} onChange={(e) => set('ndoc', e)} 
-								onKeyPress={(event) => { if (event.key === "Enter") btn.current.click(); }}
-								style={{ textAlign: 'center' }} />
+								<input value={o.ndoc} onChange={(e) => set('ndoc', e)}
+									onKeyPress={(event) => { if (event.key === "Enter") btn.current.click(); }}
+									style={{ textAlign: 'center' }} />
 							</IonCol>
 							<IonCol>
 								<div className="center-movil" style={{ marginTop: 10 }}>
@@ -107,7 +107,7 @@ const Create: React.FC<ResetProps> = ({ }) => {
 			{o.getDatos != "" ? <div>
 
 				{o.getDatosPrincipales.nombrecompleto ? <div>
-					{[o.getDatosPrincipales].map((item) =>
+					{[o.getDatosPrincipales].map((item: any) =>
 						<>
 							<IonCard style={{ background: '#e5ffe8' }}>
 								<IonCardContent>
@@ -115,39 +115,39 @@ const Create: React.FC<ResetProps> = ({ }) => {
 										<IonRow>
 											<IonCol size='3'>
 												<label>Codigo Persona: </label>
-												<input readOnly="readonly" value={item.codigoPersona} />
+												<input readOnly={true} value={item.codigoPersona} />
 											</IonCol>
 										</IonRow>
 										<IonRow>
 											<IonCol>
 												<label>Nombre Completo:</label>
-												<input readOnly="readonly" value={item.nombrecompleto} />
+												<input readOnly={true} value={item.nombrecompleto} />
 											</IonCol>
 										</IonRow>
 										<IonRow>
 											<IonCol>
 												<label>Fch. Nacimiento:</label>
-												<input readOnly="readonly" value={item.fechaNacimiento} />
+												<input readOnly={true} value={item.fechaNacimiento} />
 											</IonCol>
 											<IonCol>
 												<label>Sexo:</label>
-												<input readOnly="readonly" value={item.sexo} />
+												<input readOnly={true} value={item.sexo} />
 											</IonCol>
 										</IonRow>
 										<IonRow>
 											<IonCol>
 												<label>Homonimia:</label>
-												<input readOnly="readonly" value={item.homonimia} />
+												<input readOnly={true} value={item.homonimia} />
 											</IonCol>
 											<IonCol>
 												<label>Doble Identidad:</label>
-												<input readOnly="readonly" value={item.dobleIdentidad} />
+												<input readOnly={true} value={item.dobleIdentidad} />
 											</IonCol>
 										</IonRow>
 										<IonRow>
 											<IonCol>
 												<label>Dirección</label>
-												<input readOnly="readonly" value={item.nombrecompleto} />
+												<input readOnly={true} value={item.nombrecompleto} />
 											</IonCol>
 										</IonRow>
 									</IonGrid>
@@ -157,7 +157,7 @@ const Create: React.FC<ResetProps> = ({ }) => {
 					)}
 				</div> : <div></div>}
 				{o.getDatosper.antecedente ? <div>
-					{[o.getDatosper].map((item) =>
+					{[o.getDatosper].map((item: any) =>
 						<IonCard color='danger'>
 							<IonCardContent>
 								<IonGrid>
@@ -170,7 +170,7 @@ const Create: React.FC<ResetProps> = ({ }) => {
 												:
 												<IonCol size='12'>
 													<label>Se encontro {item.antecedente} registro(s):</label>
-													<input readOnly="readonly" value={item.descripcionMensaje} />
+													<input readOnly={true} value={item.descripcionMensaje} />
 												</IonCol>
 										}
 									</IonRow>

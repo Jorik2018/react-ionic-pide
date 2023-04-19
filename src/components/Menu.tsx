@@ -19,6 +19,7 @@ interface AppPage {
   iosIcon: string;
   mdIcon: string;
   title: string;
+  click?: () => void;
 }
 
 const appPages: AppPage[] = [
@@ -61,7 +62,9 @@ const appPages: AppPage[] = [
   {
     title: 'Cerrar Sesión',
     url: '#',
-    click: function(){accountService.logout();},
+    click: function(){
+      accountService.logout();
+    },
     iosIcon: paperPlaneOutline,
     mdIcon: paperPlaneSharp
   }

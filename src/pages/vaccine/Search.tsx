@@ -32,6 +32,18 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 		mail: '',
 		description: '',
 		name: '',
+		code: '',
+		coResultado: '',
+		datosPersona: {},
+		deResultado: '',
+		direccion: '',
+		apSegundo: '',
+		prenombres: '',
+		estadoCivil: '',
+		restriccion: '',
+		ubigeo: '',
+		apPrimer: '',
+		foto: '',
 		data: [] as any[]
 	});
 
@@ -44,46 +56,46 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 
 	const [showLoading, setShowLoading] = useState();
 
-	http.loadingMask = function (v) { setShowLoading(v) };
+	http.loadingMask = function (v: any) { setShowLoading(v) };
 
 	const columns = [
 		{
 			name: 'Fecha',
-			cell: (row) => row.fechaVacunacion,
-			width: 100,
+			cell: (row: any) => row.fechaVacunacion,
+			width: '100',
 		},
 		{
 			name: 'Fabricante',
-			selector: (row) => row.fabricanteAbrev,
+			selector: (row: any) => row.fabricanteAbrev,
 			wrap: true,
-			width: 200,
+			width: '200',
 		},
 		{
 			name: 'Diagnostico',
 			wrap: true,
-			selector: (row) => row.vacuna,
-			width: 200,
+			selector: (row: any) => row.vacuna,
+			width: '200',
 		},
 		{
 			name: 'Dosis',
 			wrap: true,
-			cell: (row) => row.dosisAplicada,
-			width: 100,
+			cell: (row: any) => row.dosisAplicada,
+			width: '100',
 		},
 		{
 			name: 'Establecimiento',
 			wrap: true,
-			cell: (row) => row.establecimiento,
-			width: 300,
+			cell: (row: any) => row.establecimiento,
+			width: '300',
 		},
 		{
 			name: 'Grupo',
-			cell: (row) => row.grupo,
+			cell: (row: any) => row.grupo,
 			wrap: true,
-			width: 100,
+			width: '100',
 		}
 	];
-	
+
 	const loginForm = () => {
 		console.log(o);
 		http.post('/api/reniec/'
@@ -134,39 +146,39 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 					<IonRow>
 						<IonCol>
 							<label>Ap. Paterno</label>
-							<input readOnly="readonly" value={o.apPrimer} />
+							<input readOnly={true} value={o.apPrimer} />
 						</IonCol>
 						<IonCol>
 							<label>Ap. Materno</label>
-							<input readOnly="readonly" value={o.apSegundo} />
+							<input readOnly={true} value={o.apSegundo} />
 						</IonCol>
 					</IonRow>
 					<IonRow>
 						<IonCol>
 							<label>Nombres</label>
-							<input readOnly="readonly" value={o.prenombres} />
+							<input readOnly={true} value={o.prenombres} />
 						</IonCol>
 					</IonRow>
 					<IonRow>
 						<IonCol>
 							<label>Estado Civil</label>
-							<input readOnly="readonly" value={o.estadoCivil} />
+							<input readOnly={true} value={o.estadoCivil} />
 						</IonCol>
 						<IonCol>
 							<label>Restriccion</label>
-							<input readOnly="readonly" value={o.restriccion} />
+							<input readOnly={true} value={o.restriccion} />
 						</IonCol>
 					</IonRow>
 					<IonRow>
 						<IonCol>
 							<label>Dirección</label>
-							<input readOnly="readonly" value={o.direccion} />
+							<input readOnly={true} value={o.direccion} />
 						</IonCol>
 					</IonRow>
 					<IonRow>
 						<IonCol>
 							<label>Ubigeo</label>
-							<input readOnly="readonly" value={o.ubigeo} />
+							<input readOnly={true} value={o.ubigeo} />
 						</IonCol>
 					</IonRow>
 				</IonGrid>

@@ -11,16 +11,17 @@ import {
 } from '@ionic/react';
 import React, { useState, createRef } from 'react';
 import { http } from '../utils/fetch-wrapper.js';
+import { RouteComponentProps } from 'react-router-dom';
 
 interface ResetProps extends RouteComponentProps<{ id: string }> { }
 
-const btn = createRef();
+const btn: any = createRef();
 
-const Create: React.FC<ResetProps> = ({ match }) => {
+const Create: React.FC<ResetProps> = ({ }) => {
 
 	const [o, setO] = useState({
 		code: '',
-		getDatosPrincipales: {},
+		getDatosPrincipales: { ddp_nombre: '' },
 		data: [] as any[]
 	});
 
@@ -32,7 +33,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 	};
 
 	const [showLoading, setShowLoading] = useState();
-	http.loadingMask = function (v) { setShowLoading(v) };
+	http.loadingMask = function (v: any) { setShowLoading(v) };
 
 	const getDatosPrincipales = () => {
 		http.post('/api/sunat/getDatosPrincipales', { numruc: o.code }, {})
@@ -67,7 +68,7 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 				</IonCardContent>
 			</IonCard>
 			{o.getDatosPrincipales.ddp_nombre ? <div>
-				{[o.getDatosPrincipales].map((item) =>
+				{[o.getDatosPrincipales].map((item: any) =>
 					<>
 						<IonCard style={{ background: '#e5ffe8' }}>
 							<IonCardContent>
@@ -75,54 +76,54 @@ const Create: React.FC<ResetProps> = ({ match }) => {
 									<IonRow>
 										<IonCol>
 											<label>Estado:</label>
-											<input readOnly="readonly" value={item.desc_estado} />
+											<input readOnly={true} value={item.desc_estado} />
 										</IonCol>
 										<IonCol>
 											<label>Condición:</label>
-											<input readOnly="readonly" value={item.desc_flag22} />
+											<input readOnly={true} value={item.desc_flag22} />
 										</IonCol>
 									</IonRow>
 									<IonRow>
 										<IonCol>
 											<label>Razon Social:</label>
-											<input readOnly="readonly" value={item.desc_tipzon} />
+											<input readOnly={true} value={item.desc_tipzon} />
 										</IonCol>
 									</IonRow>
 									<IonRow>
 										<IonCol>
 											<label>Tipo Empresa:</label>
-											<input readOnly="readonly" value={item.desc_tpoemp} />
+											<input readOnly={true} value={item.desc_tpoemp} />
 										</IonCol>
 									</IonRow>
 									<IonRow>
 										<IonCol>
 											<label>Apellidos y Nombres:</label>
-											<input readOnly="readonly" value={item.ddp_nombre} />
+											<input readOnly={true} value={item.ddp_nombre} />
 										</IonCol>
 									</IonRow>
 									<IonRow>
 										<IonCol>
 											<label>Dirección</label>
-											<input readOnly="readonly" value={item.desc_tipvia + '/ ' + item.ddp_nomvia + '/ ' + item.ddp_numer1} />
+											<input readOnly={true} value={item.desc_tipvia + '/ ' + item.ddp_nomvia + '/ ' + item.ddp_numer1} />
 										</IonCol>
 									</IonRow>
 									<IonRow>
 										<IonCol>
 											<label>Referencia</label>
-											<input readOnly="readonly" value={item.ddp_refer1 + ' / ' + item.ddp_nomzon} />
+											<input readOnly={true} value={item.ddp_refer1 + ' / ' + item.ddp_nomzon} />
 										</IonCol>
 
 									</IonRow>
 									<IonRow>
 										<IonCol>
 											<label>Descripción de actividad económica sunat:</label>
-											<input readOnly="readonly" value={item.desc_ciiu} />
+											<input readOnly={true} value={item.desc_ciiu} />
 										</IonCol>
 									</IonRow>
 									<IonRow>
 										<IonCol>
 											<label>Ubigeo (Departamento/Provincia/Distrito)</label>
-											<input readOnly="readonly" value={item.desc_dep + '/ ' + item.desc_prov + '/ ' + item.desc_dist} />
+											<input readOnly={true} value={item.desc_dep + '/ ' + item.desc_prov + '/ ' + item.desc_dist} />
 										</IonCol>
 									</IonRow>
 								</IonGrid>
