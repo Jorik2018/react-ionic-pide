@@ -26,28 +26,25 @@ setupIonicReact();
 const App: React.FC = () => {
 	let menu:any;
 
-  menu=<Menu />;
-/*
-	var url = new URL(window.location);
-	var location = window.location;
-	var token = url.searchParams.get("token");
+	const queryParams = new URLSearchParams(window.location.search); 
+	var token = queryParams.get("token");
 	if(token){
 		//localStorage.setItem('token',token);
 		accountService.setUserValue({token:token});
-		window.location=location.protocol + '//' + location.host + location.pathname
+		window.location.href=location.protocol + '//' + location.host + location.pathname
 	}
 	if(accountService.getUserValue())
 		menu=<Menu />;
 	else{
-		window.location.href = "http://web.regionancash.gob.pe/auth?destiny="+window.location.href;
-	}*/
+		window.location.href = import.meta.env.BASE_URL+ "/auth?destiny="+window.location.href;
+	}
 	return (
 		<IonApp>
 			<IonReactRouter basename={'/'}>
 				<IonSplitPane style={{'--side-width':200}} contentId="main">
 					{menu}
 					<IonRouterOutlet id="main">
-						<Route path="/admin/pide" 
+						<Route path={import.meta.env.BASE}
 							render={(props) => {
 								return <Page {...props}/>;
 							}}
