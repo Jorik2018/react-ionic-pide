@@ -2,6 +2,7 @@
   "name": "myApp2",
   "private": true,
   "version": "0.0.1",
+  "homepage": "/admin/pide",
   "type": "module",
   "scripts": {
     "dev": "vite",
