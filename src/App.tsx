@@ -37,7 +37,7 @@ const App: React.FC = () => {
 	};
 
 
-/*
+
 
 	if (!token) {
 		return <><OAuth oauth_url={import.meta.env.VITE_APP_OAUTH_URL} 
@@ -46,7 +46,7 @@ const App: React.FC = () => {
 		  dispatch({ type: 'appUrlOpen', url: url });
 		}}/></>
 	}
-*/
+
 
 	return (
 		<IonApp>
