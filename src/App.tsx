@@ -1,6 +1,7 @@
 import { IonApp, IonRouterOutlet, IonSplitPane, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { Redirect, Route } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
 import Menu from './components/Menu';
 import Page from './pages/Page';
 import { accountService } from './services/accountService.js';
@@ -15,7 +16,9 @@ import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import './theme/variables.css';
-import { http } from './utils/fetch-wrapper.js';
+//@ts-ignore
+import { http, useToken, OAuth } from 'gra-react-utils';
+//import { http } from './utils/fetch-wrapper.js';
 
 setupIonicReact();
 /*
@@ -24,25 +27,30 @@ setupIonicReact();
             </Route>
 */
 const App: React.FC = () => {
-	let menu:any;
 
-	const queryParams = new URLSearchParams(window.location.search); 
-	var token = queryParams.get("token");
-	if(token){
-		//localStorage.setItem('token',token);
-		accountService.setUserValue({token:token});
-		window.location.href=location.protocol + '//' + location.host + location.pathname
+	const { token, setToken, logOut } = useToken();
+
+	const dispatch = useDispatch();
+
+	const url = useSelector((state:any) => state.url);
+
+	http.onError = (request:any) => {
+		dispatch({ type: 'error', msg: ('<b>' + request.url + '</b><br/>' + request.error + '->' + request.message) });
+	};
+
+	if (!token) {
+		return <><OAuth oauth_url={import.meta.env.VITE_APP_OAUTH_URL} 
+			client_id={import.meta.env.VITE_APP_OAUTH_CLIENT_ID}
+			setToken={setToken} url={url} redirect={(url:any)=>{
+		  dispatch({ type: 'appUrlOpen', url: url });
+		}}/></>
 	}
-	if(accountService.getUserValue())
-		menu=<Menu />;
-	else{
-		window.location.href = import.meta.env.BASE_URL+ "/auth?destiny="+window.location.href;
-	}
+
 	return (
 		<IonApp>
 			<IonReactRouter basename={'/'}>
 				<IonSplitPane style={{'--side-width':200}} contentId="main">
-					{menu}
+					<Menu />
 					<IonRouterOutlet id="main">
 						<Route path={import.meta.env.BASE}
 							render={(props) => {

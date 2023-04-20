@@ -6,6 +6,11 @@ export default ({ mode }) => {
   return defineConfig({
     plugins: [react()],
     base:process.env.VITE_BASE,
+    server: {
+      fs: {
+        allow: ["D:/projects/nodejs/gra-utils","D:/projects/nodejs/react/react-ionic-pide"]
+      }
+    },
     test: {
       globals: true,
       environment: 'jsdom',
