@@ -80,7 +80,7 @@ const Menu: React.FC = () => {
             var click=appPage.click;
             return (
               <IonMenuToggle key={index} autoHide={false}>
-                <IonItem className={location.pathname === url ? 'selected' : ''} routerLink={import.meta.env.BASE+url} onClick={click} routerDirection="none" lines="none" detail={false}>
+                <IonItem className={location.pathname === url ? 'selected' : ''} routerLink={import.meta.env.VITE_BASE+url} onClick={click} routerDirection="none" lines="none" detail={false}>
                   <IonIcon slot="start" ios={appPage.iosIcon} md={appPage.mdIcon} />
                   <IonLabel>{appPage.title}</IonLabel>
                 </IonItem>

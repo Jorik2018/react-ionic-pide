@@ -47,13 +47,14 @@ const App: React.FC = () => {
 		}}/></>
 	}
 */
+
 	return (
 		<IonApp>
 			<IonReactRouter basename={'/'}>
 				<IonSplitPane style={{'--side-width':200}} contentId="main">
 					<Menu />
 					<IonRouterOutlet id="main">
-						<Route path={import.meta.env.BASE+'/'}
+						<Route path={import.meta.env.VITE_BASE}
 							render={(props) => {
 								return <Page {...props}/>;
 							}}
