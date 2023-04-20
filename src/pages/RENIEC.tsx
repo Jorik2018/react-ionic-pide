@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import React, { useState, createRef } from 'react';
 import { RouteComponentProps } from "react-router-dom";
-import { http } from '../utils/fetch-wrapper.js';
+import { http } from 'gra-react-utils';
 //import DataTable from "react-data-table-component";
 //import DataTableExtensions from "react-data-table-component-extensions";
 //https://www.smashingmagazine.com/2020/08/forms-validation-ionic-react/

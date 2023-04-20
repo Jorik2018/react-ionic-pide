@@ -18,7 +18,6 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 //@ts-ignore
 import { http, useToken, OAuth } from 'gra-react-utils';
-//import { http } from './utils/fetch-wrapper.js';
 
 setupIonicReact();
 /*

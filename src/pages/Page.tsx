@@ -16,7 +16,6 @@ import AntecendentesPenales from '../pages/AntecendentesPenales';
 import AntecendentesPoliciales from '../pages/AntecendentesPoliciales';
 import servir from '../pages/servir';
 import './Page.css';
-import VaccineSearch from './vaccine/Search';
 import { RouteComponentProps,Redirect } from "react-router-dom";
 import logo from '../assets/logancash.png';
 

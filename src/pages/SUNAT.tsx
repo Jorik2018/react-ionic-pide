@@ -10,7 +10,7 @@ import {
 	IonCardContent
 } from '@ionic/react';
 import React, { useState, createRef } from 'react';
-import { http } from '../utils/fetch-wrapper.js';
+import { http } from 'gra-react-utils';
 import { RouteComponentProps } from 'react-router-dom';
 
 interface ResetProps extends RouteComponentProps<{ id: string }> { }

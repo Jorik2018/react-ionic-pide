@@ -8,7 +8,7 @@ import { http } from 'gra-react-utils';
 
 http.baseURL = import.meta.env.VITE_APP_BASE_URL;
 
-function counterReducer(state = {title:'',networkStatus:{},drawer:false, url:null,load: false, snack: null, cb: null, dialog: null, result: null }, action) {
+function counterReducer(state:any = {title:'',networkStatus:{},drawer:false, url:null,load: false, snack: null, cb: null, dialog: null, result: null }, action:any) {
 
   switch (action.type) {
     case 'alert':

@@ -1,5 +1,5 @@
 import './DataTable.css';
-import { http } from '../utils/fetch-wrapper.js';
+import { http } from 'gra-react-utils';
 import { IonCheckbox } from '@ionic/react';
 
 import React, { useState, useEffect } from 'react';

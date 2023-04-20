@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonPage, IonFab, IonButton, IonIcon, IonFabList,
 import { add, settings, share, person, arrowForwardCircle, arrowBackCircle, arrowUpCircle, logoVimeo, logoFacebook, logoInstagram, logoTwitter } from 'ionicons/icons';
 import { withRouter } from 'react-router';
 import React, { useState, useEffect } from 'react';
-import { http } from '../utils/fetch-wrapper';
+import { http } from 'gra-react-utils';
 import DataTable from "react-data-table-component";
 import { useHistory } from 'react-router-dom';
 

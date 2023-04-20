@@ -21,7 +21,7 @@ import {
 } from '@ionic/react';
 import React, { useState, useEffect } from 'react';
 import { useHistory, RouteComponentProps } from "react-router-dom";
-import { http } from '../../utils/fetch-wrapper.js';
+import { http } from 'gra-react-utils';
 import DataTable from "react-data-table-component";
 
 interface ResetProps extends RouteComponentProps<{ id: string }> { }
