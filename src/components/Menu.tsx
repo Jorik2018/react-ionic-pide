@@ -12,7 +12,7 @@ import {
   mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, 
 } from 'ionicons/icons';
 import './Menu.css';
-import { accountService } from '../services/accountService.js';
+import { http } from 'gra-react-utils';
 
 interface AppPage {
   url: string;
@@ -62,8 +62,8 @@ const appPages: AppPage[] = [
   {
     title: 'Cerrar Sesión',
     url: '#',
-    click: function(){
-      accountService.logout();
+    click:()=>{
+      http.accountService.logout();
     },
     iosIcon: paperPlaneOutline,
     mdIcon: paperPlaneSharp
@@ -88,8 +88,9 @@ const Menu: React.FC = () => {
             );
           })}
         </IonList>
+        V1
       </IonContent>
-      v1
+      
     </IonMenu>
   );
 };
