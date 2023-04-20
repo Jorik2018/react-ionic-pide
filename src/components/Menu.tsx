@@ -63,7 +63,7 @@ const appPages: AppPage[] = [
     title: 'Cerrar Sesión',
     url: '#',
     click:()=>{
-      http.accountService.logout();
+      http.accountService.logOut();
     },
     iosIcon: paperPlaneOutline,
     mdIcon: paperPlaneSharp
