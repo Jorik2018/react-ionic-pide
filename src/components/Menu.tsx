@@ -89,6 +89,7 @@ const Menu: React.FC = () => {
           })}
         </IonList>
       </IonContent>
+      v1
     </IonMenu>
   );
 };
