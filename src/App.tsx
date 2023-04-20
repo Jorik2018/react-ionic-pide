@@ -4,7 +4,6 @@ import { Redirect, Route } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import Menu from './components/Menu';
 import Page from './pages/Page';
-import { accountService } from './services/accountService.js';
 import '@ionic/react/css/core.css';
 import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
