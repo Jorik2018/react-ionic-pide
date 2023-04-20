@@ -36,6 +36,9 @@ const App: React.FC = () => {
 		dispatch({ type: 'error', msg: ('<b>' + request.url + '</b><br/>' + request.error + '->' + request.message) });
 	};
 
+
+/*
+
 	if (!token) {
 		return <><OAuth oauth_url={import.meta.env.VITE_APP_OAUTH_URL} 
 			client_id={import.meta.env.VITE_APP_OAUTH_CLIENT_ID}
@@ -43,14 +46,14 @@ const App: React.FC = () => {
 		  dispatch({ type: 'appUrlOpen', url: url });
 		}}/></>
 	}
-
+*/
 	return (
 		<IonApp>
 			<IonReactRouter basename={'/'}>
 				<IonSplitPane style={{'--side-width':200}} contentId="main">
 					<Menu />
 					<IonRouterOutlet id="main">
-						<Route path={import.meta.env.BASE}
+						<Route path={import.meta.env.BASE+'/'}
 							render={(props) => {
 								return <Page {...props}/>;
 							}}
